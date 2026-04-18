@@ -4,6 +4,9 @@ import { dialect } from './src/database.js';
 export default defineConfig({
   dialect,
   migrations: {
-    migrationFolder: 'migrations',
+    migrationFolder: 'sql/migrations',
+  },
+  seeds: {
+    seedFolder: 'sql/seeds',
   },
 });

@@ -11,6 +11,6 @@
     "noEmit": true,
     "types": ["node"]
   },
-  "include": ["src/**/*.ts", "migrations/**/*.ts", "kysely.config.ts"],
+  "include": ["src/**/*.ts", "sql/migrations/**/*.ts", "kysely.config.ts"],
   "exclude": ["dist", "node_modules"]
 }
