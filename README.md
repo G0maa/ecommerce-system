@@ -74,3 +74,7 @@ docker compose down -v
 docker compose up -d
 pnpm kysely migrate:latest
 ```
+
+## Challenges
+
+### How we can apply a denormalization (uglification) mechanism on customer and order tables?
