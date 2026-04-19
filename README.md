@@ -81,9 +81,9 @@ Each exercise is in `src/sql-exercises/` and implements the query **two ways**: 
 
 | Script | File | Challenge |
 |--------|------|-----------|
-| `pnpm ex1` | `src/sql-exercises/ex1.ts` | Daily revenue report for a specific date |
-| `pnpm ex2` | `src/sql-exercises/ex2.ts` | Monthly top-selling products in a given month |
-| `pnpm ex3` | `src/sql-exercises/ex3.ts` | Customers who spent > $500 in the past month (top 10) |
+| `pnpm ex1` | [src/sql-exercises/ex1.ts](src/sql-exercises/ex1.ts) | Daily revenue report for a specific date |
+| `pnpm ex2` | [src/sql-exercises/ex2.ts](src/sql-exercises/ex2.ts) | Monthly top-selling products in a given month |
+| `pnpm ex3` | [src/sql-exercises/ex3.ts](src/sql-exercises/ex3.ts) | Customers who spent > $500 in the past month (top 10) |
 
 ```bash
 pnpm ex1   # daily revenue report
