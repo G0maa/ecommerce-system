@@ -13,6 +13,9 @@ An e-commerce schema built with MySQL + [Kysely](https://kysely.dev/) + [`kysely
     - [4. Run seeds](#4-run-seeds)
     - [5. Reset state](#5-reset-state)
   - [SQL Exercises](#sql-exercises)
+    - [EX1 — Daily revenue report (src/sql-exercises/ex1.ts)](#ex1--daily-revenue-report-srcsql-exercisesex1ts)
+    - [EX2 — Monthly top-selling products (src/sql-exercises/ex2.ts)](#ex2--monthly-top-selling-products-srcsql-exercisesex2ts)
+    - [EX3 — High-value customers (src/sql-exercises/ex3.ts)](#ex3--high-value-customers-srcsql-exercisesex3ts)
   - [ERD](#erd)
   - [Challenges](#challenges)
     - [How we can apply a denormalization (uglification) mechanism on customer and order tables?](#how-we-can-apply-a-denormalization-uglification-mechanism-on-customer-and-order-tables)
@@ -92,18 +95,90 @@ pnpm kysely migrate:latest
 
 ## SQL Exercises
 
-Each exercise is in `src/sql-exercises/` and implements the query **two ways**: raw SQL via `sql\`...\`` and the Kysely query builder. Run any exercise with its `pnpm` script (requires a running DB with migrations + seeds applied).
+Each exercise is in `src/sql-exercises/` and implements the query **two ways**: raw SQL and the Kysely query builder. Requires a running DB with migrations + seeds applied.
 
-| Script | File | Challenge |
-|--------|------|-----------|
-| `pnpm ex1` | [src/sql-exercises/ex1.ts](src/sql-exercises/ex1.ts) | Daily revenue report for a specific date |
-| `pnpm ex2` | [src/sql-exercises/ex2.ts](src/sql-exercises/ex2.ts) | Monthly top-selling products in a given month |
-| `pnpm ex3` | [src/sql-exercises/ex3.ts](src/sql-exercises/ex3.ts) | Customers who spent > $500 in the past month (top 10) |
+---
+
+### EX1 — Daily revenue report ([src/sql-exercises/ex1.ts](src/sql-exercises/ex1.ts))
+
+> Generate the total revenue for a specific date.
+
+```sql
+SELECT
+    SUM(total_amount) AS total_revenue
+FROM
+    orders
+WHERE
+    order_date >= '2025-08-13'
+    AND
+    order_date < '2025-08-14';
+```
 
 ```bash
-pnpm ex1   # daily revenue report
-pnpm ex2   # monthly top-selling products
-pnpm ex3   # high-value customers (past month)
+pnpm ex1
+```
+
+---
+
+### EX2 — Monthly top-selling products ([src/sql-exercises/ex2.ts](src/sql-exercises/ex2.ts))
+
+> List products ranked by units sold in a given month.
+
+```sql
+SELECT product.uuid, product.name, SUM(order_details.quantity) AS total_units_sold
+FROM order_details
+JOIN product ON order_details.product_uuid = product.uuid
+JOIN orders ON order_details.order_uuid = orders.uuid
+WHERE
+    orders.order_date >= '2025-08-01'
+    AND
+    orders.order_date < '2025-09-01'
+GROUP BY
+    product.uuid,
+    product.name
+ORDER BY
+    total_units_sold DESC;
+```
+
+```bash
+pnpm ex2
+```
+
+---
+
+### EX3 — High-value customers ([src/sql-exercises/ex3.ts](src/sql-exercises/ex3.ts))
+
+> Customers who spent more than $500 in the past month, top 10.
+
+```sql
+SELECT
+    customer.uuid,
+    customer.first_name,
+    customer.last_name,
+    SUM(orders.total_amount) AS total_amount_per_customer
+FROM
+    customer
+JOIN
+    orders
+ON
+    customer.uuid = orders.customer_uuid
+WHERE
+    orders.order_date >= '2026-03-01'
+    AND
+    orders.order_date < '2026-04-01'
+GROUP BY
+    customer.uuid,
+    customer.first_name,
+    customer.last_name
+HAVING
+    total_amount_per_customer > 500
+ORDER BY
+    total_amount_per_customer DESC
+LIMIT 10;
+```
+
+```bash
+pnpm ex3
 ```
 
 ## ERD
