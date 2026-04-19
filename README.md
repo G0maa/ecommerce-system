@@ -2,6 +2,21 @@
 
 An e-commerce schema built with MySQL + [Kysely](https://kysely.dev/) + [`kysely-ctl`](https://github.com/kysely-org/kysely-ctl). Migrations and seeds live under `sql/`, schema types under `src/types.ts`.
 
+## Table of Contents
+
+- [Explanation](#explanation)
+  - [Table of Contents](#table-of-contents)
+  - [Running the project](#running-the-project)
+    - [1. Install packages](#1-install-packages)
+    - [2. Start MySQL (Docker)](#2-start-mysql-docker)
+    - [3. Run migrations](#3-run-migrations)
+    - [4. Run seeds](#4-run-seeds)
+    - [5. Reset state](#5-reset-state)
+  - [SQL Exercises](#sql-exercises)
+  - [ERD](#erd)
+  - [Challenges](#challenges)
+    - [How we can apply a denormalization (uglification) mechanism on customer and order tables?](#how-we-can-apply-a-denormalization-uglification-mechanism-on-customer-and-order-tables)
+
 ## Running the project
 
 ### 1. Install packages
