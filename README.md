@@ -75,6 +75,26 @@ docker compose up -d
 pnpm kysely migrate:latest
 ```
 
+## SQL Exercises
+
+Each exercise is in `src/sql-exercises/` and implements the query **two ways**: raw SQL via `sql\`...\`` and the Kysely query builder. Run any exercise with its `pnpm` script (requires a running DB with migrations + seeds applied).
+
+| Script | File | Challenge |
+|--------|------|-----------|
+| `pnpm ex1` | `src/sql-exercises/ex1.ts` | Daily revenue report for a specific date |
+| `pnpm ex2` | `src/sql-exercises/ex2.ts` | Monthly top-selling products in a given month |
+| `pnpm ex3` | `src/sql-exercises/ex3.ts` | Customers who spent > $500 in the past month (top 10) |
+
+```bash
+pnpm ex1   # daily revenue report
+pnpm ex2   # monthly top-selling products
+pnpm ex3   # high-value customers (past month)
+```
+
+## ERD
+![ERD](./.diagrams/erd/erd.png)
+
 ## Challenges
 
 ### How we can apply a denormalization (uglification) mechanism on customer and order tables?
+![denormalization](./.diagrams/challenges/denormalization/denormalization.png)
