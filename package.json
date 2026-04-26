@@ -1,0 +1,33 @@
+{
+  "name": "ecommerce-system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "npm run typecheck && swc src -d dist --strip-leading-paths",
+    "clean": "rm -rf dist",
+    "kysely": "kysely",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ex1": "tsx --env-file=.env src/sql-exercises/ex1.ts",
+    "ex2": "tsx --env-file=.env src/sql-exercises/ex2.ts",
+    "ex3": "tsx --env-file=.env src/sql-exercises/ex3.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@faker-js/faker": "^9.2.0",
+    "dayjs": "^1.11.20",
+    "kysely": "^0.28.16",
+    "mysql2": "^3.22.1"
+  },
+  "devDependencies": {
+    "@swc/cli": "^0.5.2",
+    "@swc/core": "^1.9.3",
+    "@types/node": "^25.6.0",
+    "kysely-ctl": "^0.20.0",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3"
+  }
+}
