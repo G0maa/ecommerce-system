@@ -16,6 +16,8 @@ An e-commerce schema built with MySQL + [Kysely](https://kysely.dev/) + [`kysely
     - [EX1 — Daily revenue report (src/sql-exercises/ex1.ts)](#ex1--daily-revenue-report-srcsql-exercisesex1ts)
     - [EX2 — Monthly top-selling products (src/sql-exercises/ex2.ts)](#ex2--monthly-top-selling-products-srcsql-exercisesex2ts)
     - [EX3 — High-value customers (src/sql-exercises/ex3.ts)](#ex3--high-value-customers-srcsql-exercisesex3ts)
+    - [EX4 — Full-text product search (src/sql-exercises/ex4.ts)](#ex4--full-text-product-search-srcsql-exercisesex4ts)
+    - [EX5 — Product recommendations by category (src/sql-exercises/ex5.ts)](#ex5--product-recommendations-by-category-srcsql-exercisesex5ts)
   - [ERD](#erd)
   - [Challenges](#challenges)
     - [How we can apply a denormalization (uglification) mechanism on customer and order tables?](#how-we-can-apply-a-denormalization-uglification-mechanism-on-customer-and-order-tables)
@@ -179,6 +181,54 @@ LIMIT 10;
 
 ```bash
 pnpm ex3
+```
+
+---
+
+### EX4 — Full-text product search ([src/sql-exercises/ex4.ts](src/sql-exercises/ex4.ts))
+
+> Search for all products with a given word in either the product name or description using MySQL full-text search.
+
+```sql
+SELECT product.uuid, product.name, product.description
+FROM product
+WHERE MATCH (name, description)
+AGAINST ('computer')
+LIMIT 5;
+```
+
+```bash
+pnpm ex4
+```
+
+---
+
+### EX5 — Product recommendations by category ([src/sql-exercises/ex5.ts](src/sql-exercises/ex5.ts))
+
+> Recommend popular products in a specific category that were **not** purchased by a given customer, ranked by total units sold.
+
+```sql
+SELECT product.uuid, product.name, product.description,
+       category.uuid AS category_uuid, category.name AS category_name,
+       SUM(order_details.quantity) AS purchase_count
+FROM product
+JOIN category ON product.category_uuid = category.uuid
+JOIN order_details ON order_details.product_uuid = product.uuid
+WHERE product.uuid NOT IN(
+    SELECT product.uuid
+    FROM order_details
+    JOIN orders ON orders.uuid = order_details.order_uuid
+    JOIN customer ON customer.uuid = orders.customer_uuid
+    WHERE customer.uuid = '0x00003E4A59A1467EA0DB8A29B9167F6C'
+      AND product.category_uuid = '0x138C41CB5AA84A86827E067A27114E29'
+)
+  AND category.uuid = '0x138C41CB5AA84A86827E067A27114E29'
+GROUP BY product.uuid, category.uuid
+ORDER BY purchase_count DESC;
+```
+
+```bash
+pnpm ex5
 ```
 
 ## ERD
