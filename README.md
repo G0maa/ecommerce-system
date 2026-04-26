@@ -238,3 +238,34 @@ pnpm ex5
 
 ### How we can apply a denormalization (uglification) mechanism on customer and order tables?
 ![denormalization](./.diagrams/challenges/denormalization/denormalization.png)
+
+### Hierarchical Categories
+![hierarchical categories ERD](./.diagrams/challenges/hirearchial_categories/erd.png)
+
+<!-- #### Create a category with a parent
+```sql
+
+``` -->
+
+#### Read the full category tree / subtree
+
+```sql
+SELECT * FROM category WHERE path LIKE '/31d09fb6175943c88b6fef72c2f680a9%'
+```
+<!-- 
+#### Update a category's parent
+
+```sql
+UPDATE category
+SET parent_uuid = 'some_parent_uuid'
+WHERE uuid = 'some_child_uuid';
+
+UPDATE category
+SET path = REPLACE(path, 'old_parent_uuid/child_uuid', 'new_parent_uuid/child_uuid')
+WHERE path LIKE 'old_parent_uuid/child_uuid%';
+``` -->
+<!-- 
+#### Delete a category (and handle children)
+```sql
+
+``` -->
