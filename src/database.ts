@@ -15,4 +15,4 @@ export const dialect = new MysqlDialect({
   }),
 });
 
-export const db = new Kysely<Database>({ dialect });
+export const db = new Kysely<Database>({ dialect, log: ['error', 'query'] });

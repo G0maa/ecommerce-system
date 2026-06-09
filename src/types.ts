@@ -6,6 +6,8 @@ export type UUID = Buffer;
 export interface CategoryTable {
   uuid: UUID;
   name: string;
+  parent_uuid: UUID | null;
+  path: string | null;
 }
 
 export interface CustomerTable {

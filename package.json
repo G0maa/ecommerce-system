@@ -11,7 +11,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "ex1": "tsx --env-file=.env src/sql-exercises/ex1.ts",
     "ex2": "tsx --env-file=.env src/sql-exercises/ex2.ts",
-    "ex3": "tsx --env-file=.env src/sql-exercises/ex3.ts"
+    "ex3": "tsx --env-file=.env src/sql-exercises/ex3.ts",
+    "ex4": "tsx --env-file=.env src/sql-exercises/ex4.ts",
+    "ex5": "tsx --env-file=.env src/sql-exercises/ex5.ts"
   },
   "keywords": [],
   "author": "",
